@@ -3,6 +3,7 @@
 import {
   ChevronDown,
   FileDown,
+  FilePlus,
   FileUp,
   Laptop,
   Moon,
@@ -57,6 +58,17 @@ export default function App() {
   const { setTheme, theme } = useTheme()
 
   const baseName = sanitizeBaseName(documentStem)
+
+  const handleNew = () => {
+    setMarkdown("")
+    setDocumentStem("document")
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""
+    }
+    toast.message("New document", {
+      description: "Editor cleared.",
+    })
+  }
 
   const onFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -170,6 +182,16 @@ export default function App() {
               className="hidden"
               onChange={onFileChange}
             />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={handleNew}
+            >
+              <FilePlus className="size-4" />
+              New
+            </Button>
             <Button
               type="button"
               variant="outline"
