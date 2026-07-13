@@ -116,8 +116,13 @@ export default function App() {
     try {
       await exportPdfFile(markdown, flavor, baseName)
       toast.success("PDF ready", { id, description: `${baseName}.pdf` })
-    } catch {
-      toast.error("PDF export failed.", { id })
+    } catch (error) {
+      console.error("PDF export failed", error)
+      toast.error("PDF export failed.", {
+        id,
+        description:
+          error instanceof Error ? error.message : "See the browser console for details.",
+      })
     }
   }
 
